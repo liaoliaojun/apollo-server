@@ -5,7 +5,8 @@
   "author": "liaoliaojun",
   "license": "MIT",
   "scripts": {
-    "server": "node server/index.js"
+    "start": "forever start server/index.js",
+    "stop": "forever stop server/index.js"
   },
   "dependencies": {
     "apollo-server-express": "^2.6.7",

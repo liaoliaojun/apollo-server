@@ -7,7 +7,7 @@ import { ApolloServer } from 'apollo-server-express'
 import typeDefs from './schema'
 import resolvers from './resolvers'
 const app = express()
-const PORT = 4001
+const PORT = 80
 
 const SERVER = new ApolloServer({
   typeDefs,
@@ -22,6 +22,7 @@ app.use(history({
 }))
 app.use(express.static(path.resolve(__dirname, '../dist')))
 
-app.listen(PORT, () =>
-    console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`)
-);
+app.listen(PORT, () => {
+    const graphqlPath = SERVER.graphqlPath;
+    console.log(`🚀 Graphql Server ready at :${PORT}/${graphqlPath}`)
+});
