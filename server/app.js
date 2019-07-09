@@ -1,4 +1,6 @@
 'use strict'
+import fs from'fs'
+import url from'url'
 import path from'path'
 import express from 'express'
 import history from 'connect-history-api-fallback'
@@ -23,9 +25,14 @@ app.use(history({
 }))
 app.use(express.static(path.resolve(__dirname, '../dist')))
 
-app.get('/hello.txt', function(req, res){
-  genTheme('$--color-primary')
-  res.send('Hello World1');
+app.get('/api/index.css', function(req, res){
+  var query = url.parse(req.url, true).query
+  genTheme(query, () => {
+    res.writeHead(200, {'Content-Type': 'text/css'}); 
+    res.write(fs.readFileSync(__dirname + '/theme/output/index.css', 'utf8')); // <--- add this line 
+    res.end(); 
+    // res.send(`'Hello World callback'`);
+  })
 });
 
 app.listen(PORT, () => {

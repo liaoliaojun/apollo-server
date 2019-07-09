@@ -48,19 +48,17 @@ const et = require('element-theme')
 
 let file = fs.readFileSync(path.resolve(__dirname, './element-variables.scss'), {encoding: 'utf8'})
 file = file.replace(/\/\*[\w\W]*?\*\//gm, '').replace(/\/\/.*/gi, '').split(';')
-
-let str = ''
 const len = file.length
 
-// const sign = '$--color-primary'
-export default async function (sign) {
-    const signLen = sign.length
 
+// const sign = '$--color-primary'
+export default function (query, callack) {
+    let str = ''
+    const paramList = Object.keys(query)
+    console.log(query)
     for (let i = 0; i < len - 1; i++) {
         const item = file[i].split(':')
-        const key = item[0]
-        const keyLen = key.length
-        const keyIndex = key.lastIndexOf(sign)
+        const key = item[0].trim()
         let value = item[1]
         str += `${key}:`
 
@@ -70,8 +68,8 @@ export default async function (sign) {
         }
 
         // 核对身份
-        if (keyIndex === keyLen - signLen && keyIndex !== -1) {
-            str += `#234567 !default;`
+        if (paramList.indexOf(key) !== -1) {
+            str += ` ${query[key]} !default;`
         } else {
             str += `${value};`
         }
@@ -83,7 +81,6 @@ export default async function (sign) {
             console.log(error)
             return false
         }
-
         et.run({
             config: path.resolve(__dirname, './test.scss'),
             out: 'server/theme/output',
@@ -91,7 +88,7 @@ export default async function (sign) {
             components: [
                 'input',
             ],
-        })
+        }, callack)
     })
 }
 
