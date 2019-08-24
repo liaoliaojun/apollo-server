@@ -10,7 +10,7 @@ import genTheme from './theme/index.js'
 import typeDefs from './schema'
 import resolvers from './resolvers'
 const app = express()
-const PORT = 8090
+const PORT = 80
 
 const SERVER = new ApolloServer({
   typeDefs,
@@ -23,7 +23,7 @@ SERVER.applyMiddleware({app})
 app.use(history({
   htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'],
 }))
-app.use(express.static(path.resolve(__dirname, '../dist')))
+app.use(express.static(path.resolve(__dirname, '../../liaoliaojun-web/dist')))
 
 app.get('/api/index.css', function(req, res){
   var query = url.parse(req.url, true).query
