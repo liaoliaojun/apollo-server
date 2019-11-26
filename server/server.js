@@ -13,15 +13,7 @@ export default function (app, httpsServer, PORT) {
 
   apollo.applyMiddleware({app})
 
-  // history模式
-  app.use(history({
-    htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'],
-  }))
-
-  app.use(express.static(path.resolve(__dirname, '../../liaoliaojun-web/dist')))
-
   app.get('*', (req, res, next) => {
-    console.log(req.headers.host)
     if (req.headers.host.indexOf('liaoliaojun.com') !== -1 && !httpsServer) {
       let host = req.headers.host
       host = host.replace(/\:\d+$/, '') // Remove port number
@@ -31,15 +23,12 @@ export default function (app, httpsServer, PORT) {
     }
   })
 
-  app.get('/api/index.css', function(req, res) {
-    var query = url.parse(req.url, true).query
-    genTheme(query, () => {
-      res.writeHead(200, {'Content-Type': 'text/css'});
-      res.write(fs.readFileSync(__dirname + '/theme/output/index.css', 'utf8')) // <--- add this line 
-      res.end()
-      // res.send(`'Hello World callback'`)
-    })
-  })
+  // history模式
+  app.use(history({
+    htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'],
+  }))
+
+  app.use(express.static(path.resolve(__dirname, '../../liaoliaojun-web/dist')))
 
   if (httpsServer) {
     apollo.installSubscriptionHandlers(httpsServer)
