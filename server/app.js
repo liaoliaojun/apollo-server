@@ -11,7 +11,9 @@ import genTheme from './theme/index.js'
 import typeDefs from './schema'
 import resolvers from './resolvers'
 const app = express()
+const httpApp = express()
 const PORT = 443
+const HTTP_PORT = 80
 
 const apollo = new ApolloServer({
   typeDefs,
@@ -46,6 +48,17 @@ app.get('/api/index.css', function(req, res){
 
 apollo.installSubscriptionHandlers(server)
 
+
+// htpp 重定向
+httpApp.get('*', (req, res, next) => {
+  let host = req.headers.host
+  host = host.replace(/\:\d+$/, '') // Remove port number
+  res.redirect(`https://${host}${req.path}`)
+})
+
+httpApp.listen(HTTP_PORT)
+
+// https
 server.listen(PORT, () => {
   const graphqlPath = apollo.graphqlPath
   console.log(`🚀 Graphql Server ready at :${PORT}/${graphqlPath}`)
