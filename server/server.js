@@ -21,6 +21,7 @@ export default function (app, httpsServer, PORT) {
   app.use(express.static(path.resolve(__dirname, '../../liaoliaojun-web/dist')))
 
   app.get('*', (req, res, next) => {
+    console.log(req.headers.host)
     if (req.headers.host.indexOf('liaoliaojun.com') !== -1 && !httpsServer) {
       let host = req.headers.host
       host = host.replace(/\:\d+$/, '') // Remove port number
