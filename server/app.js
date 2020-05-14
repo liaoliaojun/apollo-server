@@ -4,16 +4,28 @@ import fs from'fs'
 // import path from'path'
 import https from 'https'
 import express from 'express'
-import genServer from './server'
+import typeDefs from './schema'
+import resolvers from './resolvers'
+import {ApolloServer} from 'apollo-server-express'
 
-const httpApp = express()
-const httpsApp = express()
-
-const HTTP_PORT = 80
-const HTTPS_PORT = 443
-
-genServer(httpApp, false, HTTP_PORT)
-genServer(httpsApp, https.createServer({
+const PORT = 3000
+const app = express()
+const httpsServer = https.createServer({
   key : fs.readFileSync(__dirname + '/ssl/liaoliaojun.com.key'),
   cert: fs.readFileSync(__dirname + '/ssl/liaoliaojun.com.crt'),
-}, httpsApp), HTTPS_PORT)
+}, app)
+
+const apollo = new ApolloServer({
+  typeDefs,
+  resolvers,
+  // playground: true,
+})
+
+apollo.applyMiddleware({app})
+
+apollo.installSubscriptionHandlers(httpsServer)
+
+httpsServer.listen(PORT, () => {
+  const graphqlPath = apollo.graphqlPath
+  console.log(`🚀 Graphql Server ready at localhost:${PORT}${graphqlPath}`)
+})
