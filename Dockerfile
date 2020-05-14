@@ -1,4 +1,5 @@
 FROM node:lts
+ADD nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./server ./server
 COPY .babelrc .babelrc
 COPY package.json package.json
