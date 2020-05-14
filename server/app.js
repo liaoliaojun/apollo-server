@@ -11,8 +11,8 @@ import {ApolloServer} from 'apollo-server-express'
 const PORT = 3000
 const app = express()
 const httpsServer = https.createServer({
-  key : fs.readFileSync(__dirname + '/ssl/liaoliaojun.com.key'),
-  cert: fs.readFileSync(__dirname + '/ssl/liaoliaojun.com.crt'),
+  key : fs.readFileSync(__dirname + '/ssl/api.liaoliaojun.com.key'),
+  cert: fs.readFileSync(__dirname + '/ssl/api.liaoliaojun.com.crt'),
 }, app)
 
 const apollo = new ApolloServer({
