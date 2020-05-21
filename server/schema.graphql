@@ -4,6 +4,9 @@ type Query {
 
   # 文章列表
   articles: [ArticleType]!
+
+  # 查询单个文章
+  article(article_id: ID!): ArticleType!
 }
 
 type Mutation {

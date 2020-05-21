@@ -12,6 +12,9 @@ const resolvers = {
     articles: (root, args, {db}) => {
       return db.get('articles').value()
     },
+    article: (root, {article_id}, {db}) => {
+      return db.get('articles').find({article_id}).value()
+    },
   },
 
   Mutation: {
