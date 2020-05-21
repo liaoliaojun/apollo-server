@@ -1,3 +1,33 @@
 type Query {
-  hello(name: String): String
+  # 查询所有者
+  owner: OwnerType!
+
+  # 文章列表
+  articles: [ArticleType]!
+}
+
+type OwnerType {
+  # 作者
+  author: String
+  # 邮箱
+  email: String
+  # 网站网址
+  website: String
+}
+
+type ArticleType {
+  # 文章id
+  article_id: ID!
+  # 文章标题
+  article_title: String!
+  # 文章内容
+  article_content: String!
+  # 浏览量
+  article_views: Int
+  # 发表时间
+  article_date: String!
+  # 文章点赞数
+  article_like_count: Int
+  # 点赞的ip地址
+  article_like_ips: [String!],
 }

@@ -4,21 +4,24 @@ import fs from'fs'
 // import path from'path'
 import https from 'https'
 import express from 'express'
-import typeDefs from './schema'
+import context from './context'
+import typeDefs from './type-defs'
 import resolvers from './resolvers'
 import {ApolloServer} from 'apollo-server-express'
 
 const PORT = 3000
 const app = express()
+
 const httpsServer = https.createServer({
   key : fs.readFileSync(__dirname + '/ssl/api.liaoliaojun.com.key'),
   cert: fs.readFileSync(__dirname + '/ssl/api.liaoliaojun.com.crt'),
 }, app)
 
 const apollo = new ApolloServer({
+  context,
   typeDefs,
   resolvers,
-  // playground: true,
+  playground: true,
 })
 
 apollo.applyMiddleware({app})

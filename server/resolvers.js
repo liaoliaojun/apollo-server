@@ -1,15 +1,12 @@
-const config = {
-  qq: '1030219089',
-  author: 'liaoliaojun',
-  email: '1030219089a@gamil.com',
-}
-
 const resolvers = {
   Query: {
-    config: () => {
-      return config
+    owner: (root, args, {db}) => {
+      return db.get('owner').value()
     },
-  }
-};
+    articles: (root, args, {db}) => {
+      return db.get('articles').value()
+    },
+  },
+}
 
-export default resolvers;
+export default resolvers
