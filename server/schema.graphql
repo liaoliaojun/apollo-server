@@ -43,7 +43,7 @@ type ArticleType {
   # 文章点赞数
   article_like_count: Int
   # 点赞的ip地址
-  article_like_ips: [String!],
+  article_like_ips: [String!]
 }
 
 input ArticleInput {
