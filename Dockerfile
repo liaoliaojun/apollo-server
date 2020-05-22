@@ -1,12 +1,12 @@
 FROM node:lts
 ADD nginx.conf /etc/nginx/conf.d/default.conf
 RUN mkdir app
+COPY ./server ./app/server
+COPY .babelrc ./app/babelrc
+COPY package.json ./app/package.json
+RUN mkdir ./app/live/
+VOLUME ['/app/live']
 WORKDIR /app
-COPY ./server ./server
-COPY .babelrc .babelrc
-COPY package.json package.json
-RUN mkdir live/
-RUN ls live/
-RUN  yarn
+RUN yarn
 EXPOSE 3000
 ENTRYPOINT ["yarn", "run", "start"]
