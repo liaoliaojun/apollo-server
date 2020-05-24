@@ -12,14 +12,21 @@ const resolvers = {
     articles: (root, args, {db}) => {
       return db.get('articles').value()
     },
-    article: (root, {article_id}, {db}) => {
+    article: (root, {article_id}, {db, ip}) => {
+      const visitor = db.get('visitors').find({ip}).value()
+      const date = new Date()
+
+      if (!visitor) {
+        db.get('visitors').push({ip, visit_time_local: date.toLocaleString(), visit_time_stamp: date.getTime()}).write()
+      } else {
+        db.get('visitors').find({ip}).assign({visit_time_local: date.toLocaleString(), visit_time_stamp: date.getTime()}).write()
+      }
       return db.get('articles').find({article_id}).value()
     },
   },
 
   Mutation: {
     addArticle: (root, {input}, {db}) => {
-      console.log(Crypto.createHash('md5').update(input.password).update("liaoliaojun").digest('hex'))
       // 验证密码
       if (Crypto.createHash('md5').update(input.password).update("liaoliaojun").digest('hex') !== PASSWORD_MD5) return 0
       const articleInfo = {
