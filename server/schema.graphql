@@ -18,6 +18,9 @@ type Mutation {
 
   # 点赞文章
   addArticleLike(article_id: ID!): Int!
+
+  # 设置访客
+  setVisitor: Boolean!
 }
 
 type OwnerType {
@@ -36,6 +39,8 @@ type ArticleType {
   article_title: String!
   # 文章内容
   article_content: String!
+  # marked原文
+  article_marked_content: String
   # 浏览量
   article_views: Int
   # 发表时间
@@ -48,11 +53,13 @@ type ArticleType {
 
 input ArticleInput {
   # 验证身份
-  password: String!
+  key: String!
   # 文章id
   article_id: ID
   # 文章标题
   article_title: String!
   # 文章内容
   article_content: String!
+  # marked原文
+  article_marked_content: String
 }
