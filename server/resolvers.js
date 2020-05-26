@@ -28,7 +28,7 @@ const resolvers = {
       const visitor = db.get('visitors').find({ip}).value()
       const date = new Date()
       if (!visitor) {
-        db.get('visitors').push({ip, visit_time_local: date.toLocaleString('zh-CN'), visit_time_stamp: date.getTime()}).write()
+        db.get('visitors').unshift({ip, visit_time_local: date.toLocaleString('zh-CN'), visit_time_stamp: date.getTime()}).write()
       } else {
         db.get('visitors').find({ip}).assign({visit_time_local: date.toLocaleString('zh-CN'), visit_time_stamp: date.getTime()}).write()
       }
@@ -47,7 +47,7 @@ const resolvers = {
         article_like_count: 0,
         article_like_ips: [],
       }
-      db.get('articles').push(articleInfo).write()
+      db.get('articles').unshift(articleInfo).write()
       return articleInfo.article_id || 0
     },
 
@@ -72,7 +72,7 @@ const resolvers = {
 
       if (ips.indexOf(ip) === -1) {
         // 记录点赞的ip
-        ips.push(ip)
+        ips.unshift(ip)
       }
 
       db.get('articles').find({article_id}).assign({
