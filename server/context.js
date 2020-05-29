@@ -1,4 +1,5 @@
 import {db} from './utils/db'
+import {processUpload} from './utils/upload'
 
 // Context passed to all resolvers (third argument)
 // req => Query
@@ -8,5 +9,6 @@ export default ({req, connection}) => {
   return {
     ip: req.ip,
     db,
+    processUpload,
   }
 }

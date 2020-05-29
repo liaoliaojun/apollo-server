@@ -1,3 +1,6 @@
+# Included scalars
+# scalar Upload // apollo已内置Upload
+
 type Query {
   # 查询所有者
   owner: OwnerType!
@@ -21,6 +24,12 @@ type Mutation {
 
   # 设置访客
   setVisitor: Boolean!
+
+  # 单文件上传
+  singleUpload (file: Upload!, key: String!): File!
+
+  # 多文件上传
+  multipleUpload (files: [Upload!]!, key: String!): [File!]!
 }
 
 type OwnerType {
@@ -62,4 +71,12 @@ input ArticleInput {
   article_content: String!
   # marked原文
   article_marked_content: String
+}
+
+type File {
+  id: ID!
+  path: String!
+  filename: String!
+  mimetype: String!
+  encoding: String!
 }

@@ -1,14 +1,12 @@
-
-import {createHash} from 'crypto'
 import {generate} from 'shortid'
 import {JSDOM} from 'jsdom'
 import DOMPurify  from 'dompurify'
+// 验证密码
+import ValidateKey from './key/app-key'
 
 // 防xss攻击
 const {window} = new JSDOM('<!DOCTYPE html>')
 const domPurify = DOMPurify(window)
-
-const PASSWORD_MD5 = 'f40a80dc6e7aa63c2ade7f06eee4c088'
 
 const resolvers = {
   Query: {
@@ -36,7 +34,7 @@ const resolvers = {
     },
     addArticle: (root, {input}, {db}) => {
       // 验证密码
-      if (createHash('md5').update(input.key).update('liaoliaojun').digest('hex') !== PASSWORD_MD5) return 0
+      if (!ValidateKey(input.key)) return 0
       const articleInfo = {
         article_id: generate(),
         article_title: input.article_title,
@@ -53,7 +51,7 @@ const resolvers = {
 
     updateArticle: (root, {input}, {db}) => {
       // 验证密码
-      if (createHash('md5').update(input.key).update('liaoliaojun').digest('hex') !== PASSWORD_MD5) return 0
+      if (!ValidateKey(input.key)) return 0
       // 验证文章是否存在
       if (!db.get('articles').find({article_id: input.article_id}).value()) return 0
 
@@ -80,6 +78,15 @@ const resolvers = {
         article_like_ips: ips,
       }).write()
       return likeCount || 0
+    },
+
+    singleUpload: (root, {file, key}, {processUpload}) => {
+      if (!ValidateKey(key)) return null
+      return processUpload(file)
+    },
+    multipleUpload: (root, {files, key}, {processUpload}) => {
+      if (!ValidateKey(key)) return null
+      return Promise.all(files.map(processUpload))
     },
   },
 }
