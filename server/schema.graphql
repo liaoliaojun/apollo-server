@@ -30,6 +30,9 @@ type Mutation {
 
   # 多文件上传
   multipleUpload (files: [Upload!]!, key: String!): [File!]!
+
+  # 获取网络图片
+  getImage (fileUrl: String!, key: String!): File!
 }
 
 type OwnerType {

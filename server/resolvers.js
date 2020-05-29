@@ -1,8 +1,11 @@
 import {generate} from 'shortid'
 import {JSDOM} from 'jsdom'
 import DOMPurify  from 'dompurify'
+
 // 验证密码
 import ValidateKey from './key/app-key'
+// 下载图片
+import {getImage} from './utils/get-image'
 
 // 防xss攻击
 const {window} = new JSDOM('<!DOCTYPE html>')
@@ -32,6 +35,7 @@ const resolvers = {
       }
       return true
     },
+
     addArticle: (root, {input}, {db}) => {
       // 验证密码
       if (!ValidateKey(input.key)) return 0
@@ -84,9 +88,16 @@ const resolvers = {
       if (!ValidateKey(key)) return null
       return processUpload(file)
     },
+
     multipleUpload: (root, {files, key}, {processUpload}) => {
       if (!ValidateKey(key)) return null
       return Promise.all(files.map(processUpload))
+    },
+
+    // 获取网络图片
+    getImage: (root, {fileUrl, key}) => {
+      if (!ValidateKey(key)) return null
+      return getImage(fileUrl)
     },
   },
 }

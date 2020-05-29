@@ -7,7 +7,7 @@ const uploadDir = resolve(__dirname, '../../live/uploads')
 
 // Ensure upload directory exists
 
-const storeUpload = async ({ stream, filename }) => {
+export async function storeUpload ({stream, filename}) {
   const id = generate()
   const file = `${id}-${filename}`
   const path = `${uploadDir}/${file}`
@@ -21,7 +21,7 @@ const storeUpload = async ({ stream, filename }) => {
   )
 }
 
-const recordFile = file =>
+export const recordFile = file =>
   db
     .get('uploads')
     .push(file)
@@ -29,7 +29,7 @@ const recordFile = file =>
     .write()
 
 export async function processUpload (file) {
-  const { stream, filename, mimetype, encoding } = await file
-  const { id, path } = await storeUpload({ stream, filename })
-  return recordFile({ id, filename, mimetype, encoding, path })
+  const {stream, filename, mimetype, encoding} = await file
+  const {id, path} = await storeUpload({stream, filename})
+  return recordFile({id, filename, mimetype, encoding, path})
 }
