@@ -61,6 +61,8 @@ type ArticleType {
   article_like_count: Int
   # 点赞的ip地址
   article_like_ips: [String!]
+  # 背景图地址(/保存至本服务器)
+  bg_path: String
 }
 
 input ArticleInput {
@@ -74,6 +76,8 @@ input ArticleInput {
   article_content: String!
   # marked原文
   article_marked_content: String
+  # 背景图地址(/保存至本服务器)
+  bg_path: String
 }
 
 type File {

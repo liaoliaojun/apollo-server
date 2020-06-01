@@ -39,6 +39,9 @@ const resolvers = {
     addArticle: (root, {input}, {db}) => {
       // 验证密码
       if (!ValidateKey(input.key)) return 0
+      // title是否相同
+      if (db.get('articles').find({article_title: input.article_title}).value()) return 0
+
       const articleInfo = {
         article_id: generate(),
         article_title: input.article_title,
@@ -48,6 +51,7 @@ const resolvers = {
         article_date: '2020.05.21',
         article_like_count: 0,
         article_like_ips: [],
+        bg_path: input.bg_path,
       }
       db.get('articles').unshift(articleInfo).write()
       return articleInfo.article_id || 0
@@ -63,6 +67,7 @@ const resolvers = {
         article_title: input.article_title,
         article_marked_content: input.article_marked_content,
         article_content: domPurify.sanitize(input.article_content),
+        bg_path: input.bg_path,
       }).write()
       return input.article_id || 0
     },
