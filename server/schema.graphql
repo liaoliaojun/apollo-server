@@ -20,7 +20,7 @@ type Mutation {
   updateArticle(input: ArticleInput): ID!
 
   # 点赞文章
-  addArticleLike(article_id: ID!): Int!
+  addArticleLike(article_id: ID!): Boolean!
 
   # 设置访客
   setVisitor: Boolean!
@@ -55,8 +55,10 @@ type ArticleType {
   article_marked_content: String
   # 浏览量
   article_views: Int
-  # 发表时间
+  # 创建文章时间
   article_date: String
+  # 创建文章时间戳
+  article_time_stamp: Int
   # 文章点赞数
   article_like_count: Int
   # 点赞的ip地址
@@ -86,4 +88,23 @@ type File {
   filename: String!
   mimetype: String!
   encoding: String!
+}
+
+type Comment {
+  # 评论id
+  comment_id: ID
+  # 用户信息
+  create_user: User!
+  # 评论内容（转换后）
+  comment_content: String!
+  # 评论原文
+  comment_marked_content: String
+  # 评论时间
+  create_time: String
+}
+
+type User {
+  name: String!
+  email: String!
+  avatar: String
 }

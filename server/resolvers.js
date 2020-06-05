@@ -1,11 +1,16 @@
 import {generate} from 'shortid'
 import {JSDOM} from 'jsdom'
-import DOMPurify  from 'dompurify'
+import DOMPurify from 'dompurify'
+import Dayjs from 'dayjs'
 
 // 验证密码
 import ValidateKey from './key/app-key'
 // 下载图片
 import {getImage} from './utils/get-image'
+
+// 全局使用中文
+import 'dayjs/locale/zh-cn'
+Dayjs.locale('zh-cn')
 
 // 防xss攻击
 const {window} = new JSDOM('<!DOCTYPE html>')
@@ -20,7 +25,11 @@ const resolvers = {
       return db.get('articles').value()
     },
     article: (root, {article_id}, {db, ip}) => {
-      return db.get('articles').find({article_id}).value()
+      const {article_views} = db.get('articles').find({article_id}).value()
+      const article = db.get('articles').find({article_id}).assign({
+        article_views: article_views+1,
+      }).write()
+      return article
     },
   },
 
@@ -29,9 +38,9 @@ const resolvers = {
       const visitor = db.get('visitors').find({ip}).value()
       const date = new Date()
       if (!visitor) {
-        db.get('visitors').unshift({ip, visit_time_local: date.toLocaleString('zh-CN'), visit_time_stamp: date.getTime()}).write()
+        db.get('visitors').unshift({ip, visit_time_local: Dayjs(date).format('MMMMDD, YYYY HH点mm分'), visit_time_stamp: date.getTime()}).write()
       } else {
-        db.get('visitors').find({ip}).assign({visit_time_local: date.toLocaleString('zh-CN'), visit_time_stamp: date.getTime()}).write()
+        db.get('visitors').find({ip}).assign({visit_time_local: Dayjs(date).format('MMMMDD, YYYY HH点mm分'), visit_time_stamp: date.getTime()}).write()
       }
       return true
     },
@@ -48,7 +57,8 @@ const resolvers = {
         article_marked_content: input.article_marked_content,
         article_content: domPurify.sanitize(input.article_content),
         article_views: 0,
-        article_date: '2020.05.21',
+        article_date: Dayjs(new Date()).format('MMMMDD, YYYY HH点mm分'),
+        article_time_stamp: new Dayjs().getTime(),
         article_like_count: 0,
         article_like_ips: [],
         bg_path: input.bg_path,
@@ -75,18 +85,18 @@ const resolvers = {
     addArticleLike: (root, {article_id}, {db, ip}) => {
       const article = db.get('articles').find({article_id}).cloneDeep().value()
       const ips = article.article_like_ips || []
-      const likeCount = article.article_like_count + 1
 
       if (ips.indexOf(ip) === -1) {
         // 记录点赞的ip
         ips.unshift(ip)
+        db.get('articles').find({article_id}).assign({
+          article_like_count: article.article_like_count + 1,
+          article_like_ips: ips,
+        }).write()
+        return true
+      } else {
+        return false
       }
-
-      db.get('articles').find({article_id}).assign({
-        article_like_count: likeCount,
-        article_like_ips: ips,
-      }).write()
-      return likeCount || 0
     },
 
     singleUpload: (root, {file, key}, {processUpload}) => {
