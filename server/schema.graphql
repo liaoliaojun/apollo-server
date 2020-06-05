@@ -5,6 +5,9 @@ type Query {
   # 查询所有者
   owner: OwnerType!
 
+  # 查询置顶文章
+  tops: [ArticleType]!
+
   # 文章列表
   articles: [ArticleType]!
 
@@ -68,6 +71,12 @@ type ArticleType {
   article_like_ips: [String!]
   # 背景图地址(/保存至本服务器)
   bg_path: String
+  # 是否置顶（放置于首页轮播图）
+  is_top: Boolean
+  # 置顶权重
+  top_weight: Int
+  # 标签
+  tags: [String]
 }
 
 input ArticleInput {
@@ -83,6 +92,12 @@ input ArticleInput {
   article_marked_content: String
   # 背景图地址(/保存至本服务器)
   bg_path: String
+  # 是否置顶（放置于首页轮播图）
+  is_top: Boolean!
+  # 置顶权重
+  top_weight: Int!
+  # 标签
+  tags: [String]!
 }
 
 input deleteArticleInput {

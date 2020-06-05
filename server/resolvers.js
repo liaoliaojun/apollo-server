@@ -21,6 +21,19 @@ const resolvers = {
     owner: (root, args, {db}) => {
       return db.get('owner').value()
     },
+    tops: (root, args, {db}) => {
+      const data = db.get('articles').filter(article => article.is_top).value()
+      // 权重排序
+      return data.reduce((acc, cur) => {
+        const findIndex = acc.findIndex(item => item.top_weight > cur.top_weight)
+        if (findIndex === 0) {
+          return [cur, ...acc]
+        } else if (findIndex !== -1) {
+          return [...acc.slice(0, findIndex), cur, ...acc.slice(findIndex, acc.length)]
+        }
+        return [...acc, cur]
+      }, [])
+    },
     articles: (root, args, {db}) => {
       return db.get('articles').value()
     },
@@ -62,6 +75,9 @@ const resolvers = {
         article_like_count: 0,
         article_like_ips: [],
         bg_path: input.bg_path,
+        is_top: input.is_top,
+        top_weight: input.top_weight,
+        tags: input.tags || [],
       }
       db.get('articles').unshift(articleInfo).write()
       return articleInfo.article_id || 0
@@ -78,6 +94,9 @@ const resolvers = {
         article_marked_content: input.article_marked_content,
         article_content: domPurify.sanitize(input.article_content),
         bg_path: input.bg_path,
+        is_top: input.is_top,
+        top_weight: input.top_weight,
+        tags: input.tags || [],
       }).write()
       return input.article_id || 0
     },
