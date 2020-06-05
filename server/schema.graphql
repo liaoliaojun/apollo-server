@@ -14,10 +14,13 @@ type Query {
 
 type Mutation {
   # 添加文章
-  addArticle(input: ArticleInput): ID!
+  addArticle(input: ArticleInput!): ID!
 
   # 更新文章
-  updateArticle(input: ArticleInput): ID!
+  updateArticle(input: ArticleInput!): ID!
+
+  # 删除文章
+  deleteArticle(input: deleteArticleInput!): ID!
 
   # 点赞文章
   addArticleLike(article_id: ID!): Boolean!
@@ -80,6 +83,13 @@ input ArticleInput {
   article_marked_content: String
   # 背景图地址(/保存至本服务器)
   bg_path: String
+}
+
+input deleteArticleInput {
+  # 验证身份
+  key: String!
+  # 文章id
+  article_id: ID!
 }
 
 type File {

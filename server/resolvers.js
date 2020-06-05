@@ -82,6 +82,13 @@ const resolvers = {
       return input.article_id || 0
     },
 
+    deleteArticle: (root, {input}, {db}) => {
+      // 验证密码
+      if (!ValidateKey(input.key)) return 0
+      db.get('articles').remove({article_id: input.article_id}).write()
+      return input.article_id || 0
+    },
+
     addArticleLike: (root, {article_id}, {db, ip}) => {
       const article = db.get('articles').find({article_id}).cloneDeep().value()
       const ips = article.article_like_ips || []
