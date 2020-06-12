@@ -6,4 +6,4 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - /app/live/:/www/live
+      - ./live/:/www/live/
