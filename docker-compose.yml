@@ -1,9 +1,12 @@
 version: '3'
 services:
-  webapp:
+  webserver:
     build: .
     image: server-app
     ports:
       - '3000:3000'
     volumes:
-      - ./www/live/:/app/live/
+      - '/www/live/:./live/'
+volumes:
+  webserver:
+    external: true
