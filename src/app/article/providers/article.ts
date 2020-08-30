@@ -35,7 +35,7 @@ const articles = [
 export class Article {
   // constructor (private)
   getArticle (id: string) {
-    return articles.find(item => id === item.article_id)
+    return articles.find(item => id === item.article_id) ?? null
   }
 
   getAll () {

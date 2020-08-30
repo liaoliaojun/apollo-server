@@ -12,11 +12,13 @@ import express from 'express'
 import graphQLHTTP from 'express-graphql'
 import {UserModule} from './app/user/user.module'
 import {AuthModule} from './app/auth/auth.module'
+import {ArticleModule} from './app/article/index'
 import {SocialNetworkModule} from './app/social-network/social-network.module'
 
 const server = express()
 const app = createApplication({
-  modules: [UserModule, AuthModule, SocialNetworkModule],
+  //@ts-ignore
+  modules: [ArticleModule, UserModule, AuthModule, SocialNetworkModule],
 })
 const execute = app.createExecution()
 
