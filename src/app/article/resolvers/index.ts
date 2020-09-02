@@ -1,7 +1,7 @@
 import query from './query';
-import post from './post';
+import article from './article';
 
 export default {
   ...query,
-  ...post,
+  ...article,
 };

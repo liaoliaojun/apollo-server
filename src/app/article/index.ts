@@ -1,17 +1,16 @@
-import {createApplication, gql} from 'graphql-modules'
+import {createModule, gql} from 'graphql-modules'
 import {Article} from './providers/article'
 import resolvers from './resolvers'
 
-export const ArticleModule = createApplication({
-  // @ts-ignore
-  id: 'user',
+export const ArticleModule = createModule({
+  id: 'article',
   dirname: __dirname,
   providers: [Article],
   resolvers,
   typeDefs: gql`
     extend type Query {
       # 单个文章
-      article (id: ID!): Article!
+      # article (id: ID!): Article!
       # 所有文章
       articles: [Article]!
     }

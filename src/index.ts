@@ -17,7 +17,6 @@ import {SocialNetworkModule} from './app/social-network/social-network.module'
 
 const server = express()
 const app = createApplication({
-  //@ts-ignore
   modules: [ArticleModule, UserModule, AuthModule, SocialNetworkModule],
 })
 const execute = app.createExecution()
