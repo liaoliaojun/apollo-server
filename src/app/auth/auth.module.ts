@@ -42,6 +42,26 @@ export const AuthModule = createModule({
         return {
           _id: 1,
           username: 'me',
+          friends: [
+            {
+              _id: 2,
+              username: 'me2',
+              friends: [
+                {
+                  _id: 21,
+                  username: 'me21',
+                },
+              ],
+            },
+            {
+              _id: 3,
+              username: 'me',
+            },
+            {
+              _id: 4,
+              username: 'me',
+            },
+          ],
         };
       },
     },
