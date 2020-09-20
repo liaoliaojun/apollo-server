@@ -10,7 +10,7 @@ export const ArticleModule = createModule({
   typeDefs: gql`
     extend type Query {
       # 单个文章
-      # article (id: ID!): Article!
+      article (id: ID!): Article!
       # 所有文章
       articles: [Article]!
     }

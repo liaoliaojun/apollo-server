@@ -2,7 +2,10 @@
 
 export default {
   Article: {
-    article_id: (article: any) => article.article_id,
+    article_id: (article: any) => {
+      console.log(article)
+      return article.article_id
+    },
     article_title: (article: any) => article.article_title,
     article_content: (article: any) => article.article_content,
     article_marked_content: (article: any) => article.article_marked_content,
