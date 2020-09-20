@@ -1,7 +1,6 @@
 import {Injectable} from 'graphql-modules'
 import {db} from '../../../db/index'
 
-
 // const articles = [
 //   {
 //     // 文章id
@@ -37,7 +36,7 @@ import {db} from '../../../db/index'
 export class Article {
   // constructor (private)
   getArticle (id: string) {
-    return db.get('articles').find(article => id === article.article_id) ?? null
+    return db.get('articles').find({article_id: id}).value()
   }
 
   getAll () {

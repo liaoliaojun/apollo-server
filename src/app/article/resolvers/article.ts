@@ -3,7 +3,6 @@
 export default {
   Article: {
     article_id: (article: any) => {
-      console.log(article)
       return article.article_id
     },
     article_title: (article: any) => article.article_title,
