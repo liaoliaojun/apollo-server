@@ -1,4 +1,5 @@
 import {Injectable} from 'graphql-modules'
+import {generate} from 'shortid'
 import {db} from '../../../db/index'
 
 // const articles = [
@@ -41,5 +42,25 @@ export class Article {
 
   getAll () {
     return db.get('articles').value()
+  }
+
+  addArticle (input) {
+    const articleInfo = {
+      article_id: generate(),
+      article_title: input.article_title,
+      article_marked_content: input.article_marked_content,
+      article_content: input.article_content,
+      article_views: 1,
+      article_date: '20201001 12:38',
+      article_time_stamp: new Date().getTime(),
+      article_like_count: 0,
+      article_like_ips: [],
+      bg_path: input.bg_path,
+      is_top: input.is_top,
+      top_weight: input.top_weight,
+      tags: input.tags || [],
+    }
+    db.get('articles').unshift(articleInfo).write()
+    return articleInfo.article_id
   }
 }
