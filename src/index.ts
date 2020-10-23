@@ -14,12 +14,16 @@ import {UserModule} from './app/user/user.module'
 import {AuthModule} from './app/auth/auth.module'
 import {ArticleModule} from './app/article/index'
 import {SocialNetworkModule} from './app/social-network/social-network.module'
+import {fetchConfig} from './config'
 
 const server = express()
 const app = createApplication({
   modules: [ArticleModule, UserModule, AuthModule, SocialNetworkModule],
 })
 const execute = app.createExecution()
+
+// sync fetch config
+fetchConfig()
 
 server.use(
   '/graphql',
