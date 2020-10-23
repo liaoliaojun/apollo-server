@@ -1,7 +1,7 @@
 import {resolve} from 'path'
 import {readFile} from 'fs'
 
-const config: any = {}
+const config: {[key: string]: any} = {}
 
 export async function fetchConfig () {
   const filePath = resolve(__dirname, '../live/config.json')
