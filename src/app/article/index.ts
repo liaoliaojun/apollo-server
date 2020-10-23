@@ -50,7 +50,7 @@ export const ArticleModule = createModule({
 
     input ArticleInput {
        # 验证身份
-      key: String
+      key: String!
       # 文章id
       article_id: ID
       # 文章标题

@@ -1,6 +1,7 @@
 import {Injectable} from 'graphql-modules'
 import {generate} from 'shortid'
-import {db} from '../../../db/index'
+import {db} from '../../../db/'
+import checkKey from '../../../utils/key'
 
 // const articles = [
 //   {
@@ -45,6 +46,10 @@ export class Article {
   }
 
   addArticle (input) {
+    if (!checkKey(input.key)) {
+      return new Error ('check password failed')
+    }
+
     const articleInfo = {
       article_id: generate(),
       article_title: input.article_title,
