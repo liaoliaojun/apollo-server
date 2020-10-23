@@ -10,28 +10,22 @@
     "build": "tsc"
   },
   "dependencies": {
-    "apollo-server-express": "^2.13.0",
-    "connect-history-api-fallback": "^1.6.0",
+    "apollo-server-express": "^2.18.2",
     "crypto": "^1.0.1",
-    "dayjs": "^1.8.28",
-    "dompurify": "^2.0.11",
+    "dayjs": "^1.9.3",
+    "dompurify": "^2.2.0",
     "express": "^4.17.1",
-    "express-graphql": "0.9.0",
-    "graphql": "^14.4.2",
+    "express-graphql": "0.11.0",
+    "graphql": "^15.3.0",
     "graphql-modules": "^1.0.0-alpha.2",
-    "jsdom": "^16.2.2",
+    "jsdom": "^16.4.0",
     "lowdb": "^1.0.0",
     "mkdirp": "^1.0.4",
     "reflect-metadata": "^0.1.13",
-    "scss-symbols-parser": "^1.1.3",
-    "shortid": "^2.2.15",
+    "scss-symbols-parser": "^2.0.1",
+    "shortid": "^2.2.16",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.3"
   },
-  "devDependencies": {
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.26.0"
-  }
+  "devDependencies": {}
 }
