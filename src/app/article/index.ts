@@ -23,21 +23,21 @@ export const ArticleModule = createModule({
       # 文章id
       article_id: ID
       # 文章标题
-      article_title: String!
+      title: String!
       # 文章内容
-      article_content: String!
+      content: String!
       # marked原文
-      article_marked_content: String
+      marked_content: String
       # 浏览量
-      article_views: Int
+      views: Int
       # 创建文章时间
-      article_date: String
+      date: String
       # 创建文章时间戳
-      article_time_stamp: Int
+      time_stamp: Int
       # 文章点赞数
-      article_like_count: Int
+      like_count: Int
       # 点赞的ip地址
-      article_like_ips: [String!]
+      like_ips: [String!]
       # 背景图地址(/保存至本服务器)
       bg_path: String
       # 是否置顶（放置于首页轮播图）
@@ -54,11 +54,11 @@ export const ArticleModule = createModule({
       # 文章id
       article_id: ID
       # 文章标题
-      article_title: String!
+      title: String!
       # 文章内容
-      article_content: String!
+      content: String!
       # marked原文
-      article_marked_content: String
+      marked_content: String
       # 背景图地址(/保存至本服务器)
       bg_path: String
       # 是否置顶（放置于首页轮播图）
