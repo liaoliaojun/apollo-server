@@ -1,4 +1,4 @@
-import { Article } from '../providers/article'
+import {Article} from '../providers/article'
 
 export default {
   Mutation: {

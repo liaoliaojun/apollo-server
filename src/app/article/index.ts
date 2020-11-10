@@ -13,6 +13,8 @@ export const ArticleModule = createModule({
       article (id: ID!): Article!
       # 所有文章
       articles: [Article]!
+      # 置顶文章
+      tops: [Article]!
     }
 
     type Mutation {

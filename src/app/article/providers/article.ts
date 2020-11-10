@@ -14,6 +14,19 @@ export class Article {
     return db.get('articles').value()
   }
 
+  getTops () {
+    const articles = this.getAll().filter(article => article.is_top)
+    return articles.reduce((acc, cur) => {
+      const findIndex = acc.findIndex(item => item.top_weight > cur.top_weight)
+      if (findIndex === 0) {
+        return [cur, ...acc]
+      } else if (findIndex !== -1) {
+        return [...acc.slice(0, findIndex), cur, ...acc.slice(findIndex, acc.length)]
+      }
+      return [...acc, cur]
+    }, [])
+  }
+
   addArticle (input) {
     if (!checkKey(input.key)) {
       return new Error ('check password failed')
