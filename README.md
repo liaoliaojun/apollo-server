@@ -1,8 +1,8 @@
 ## Blog Server
 
-Use Graphql-modules & Lowdb
+- Used [Graphql-modules](https://github.com/Urigo/graphql-modules) & [Lowdb](https://github.com/typicode/lowdb)
 
-blog address: https://liaoliaojun.com
+- Blog address: https://liaoliaojun.com
 
 ## Build Setup
 
