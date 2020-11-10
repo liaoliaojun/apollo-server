@@ -1,4 +1,6 @@
 import {createModule, gql} from 'graphql-modules'
+import checkKey from '../../utils/key'
+import {processUpload, getImage} from '../../utils/upload'
 
 export const UploadModule = createModule({
   id: 'upload',
@@ -25,9 +27,18 @@ export const UploadModule = createModule({
   `,
   resolvers: {
     Mutation: {
-      downImage: (_root, {input}, {injector}: GraphQLModules.Context) => {
-        console.log(1232)
+      downImage: (_root, {key, fileUrl}, {injector}: GraphQLModules.Context) => {
+        if (!checkKey(key)) return new Error ('check password failed')
+        return getImage(fileUrl)
       },
-    },
+      singleUpload: (_root, {key, file}, {injector}: GraphQLModules.Context) => {
+        if (!checkKey(key)) return new Error ('check password failed')
+        return processUpload(file)
+      },
+      multipleUpload: (_root, {key, files}, {injector}: GraphQLModules.Context) => {
+        if (!checkKey(key)) return new Error ('check password failed')
+        return Promise.all(files.map(processUpload))
+      },
+    }, 
   },
 })

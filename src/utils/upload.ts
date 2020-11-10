@@ -1,7 +1,8 @@
 import {createWriteStream} from 'fs'
-import {resolve} from 'path'
+import {resolve, basename} from 'path'
 import {generate} from 'shortid'
 import {db} from '../db/'
+import request from 'request'
 
 const uploadDir = resolve(__dirname, '../../live/uploads')
 
@@ -32,4 +33,13 @@ export async function processUpload (file) {
   const {stream, filename, mimetype, encoding} = await file
   const {id, path} = await storeUpload({stream, filename})
   return recordFile({id, filename, mimetype, encoding, path})
+}
+
+
+export async function getImage (url: string) {
+  if (!url) return new Error ('getImage no first params')
+  const filename = basename(url)
+  const stream = await request(url)
+  const {id, path} = await storeUpload({stream, filename})
+  return recordFile({id, filename, mimetype: '', encoding: '', path})
 }
