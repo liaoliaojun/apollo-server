@@ -1,11 +1,10 @@
 FROM node:lts
-ADD nginx.conf /etc/nginx/conf.d/default.conf
-COPY ./server ./app/server
+COPY ./src ./app/src
 COPY ./live ./app/live
-COPY .babelrc ./app/.babelrc
 COPY package.json ./app/package.json
+COPY tsconfig.json ./app/tsconfig.json
+COPY yarn.lock ./app/yarn.lock
 WORKDIR /app
 RUN yarn
 EXPOSE 3000
-VOLUME ['/app/live/db.json']
 ENTRYPOINT ["yarn", "run", "start"]
