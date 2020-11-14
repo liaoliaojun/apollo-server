@@ -7,9 +7,10 @@ declare global {
 }
 
 import 'reflect-metadata'
-import {createApplication} from 'graphql-modules'
 import express from 'express'
+import path from'path'
 import {graphqlHTTP} from 'express-graphql'
+import {createApplication} from 'graphql-modules'
 // import {UserModule} from './app/user/user.module'
 // import {AuthModule} from './app/auth/auth.module'
 import {OwnerModule} from './app/owner/owner.module'
@@ -19,6 +20,8 @@ import {ArticleModule} from './app/article/index'
 import {fetchConfig} from './config'
 
 const server = express()
+
+server.use('/files', express.static(path.resolve(__dirname, '../live/uploads')))
 
 server.all('*', function(req, res, next) {
   const allowOrigins = ['http://dev.liaoliaojun.com', 'https://dev.liaoliaojun.com', 'http://www.liaoliaojun.com', 'https://www.liaoliaojun.com']
