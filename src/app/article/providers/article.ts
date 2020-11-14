@@ -2,20 +2,31 @@ import {Injectable} from 'graphql-modules'
 import {generate} from 'shortid'
 import DOMPurify from 'dompurify'
 import {JSDOM} from 'jsdom'
+import Dayjs from 'dayjs'
 
 import {db} from '../../../db/'
 import checkKey from '../../../utils/key'
 
+import UTC from 'dayjs/plugin/utc'
+import 'dayjs/locale/zh-cn'
+// 加载UTC插件
+Dayjs.extend(UTC)
+// 全局使用中文
+Dayjs.locale('zh-cn')
 
 @Injectable()
 export class Article {
   // constructor (private)
-  getArticle (id: string) {
-    return db.get('articles').find({article_id: id}).value()
+  getArticle (article_id: string) {
+    const {views} = db.get('articles').find({article_id}).value()
+    const article = db.get('articles').find({article_id}).assign({
+      views: views + 1,
+    }).write()
+    return article
   }
 
   getAll () {
-    return db.get('articles').value()
+    return db.get('articles').filter(article => article.article_id !== 'changelog').value()
   }
 
   getTops () {
@@ -45,7 +56,7 @@ export class Article {
       marked_content: input.marked_content,
       content: domPurify.sanitize(input.content),
       views: 1,
-      date: '20201001 12:38',
+      date: Dayjs.utc().utcOffset(480).format('MMMMDD, YYYY HH点mm分'),
       time_stamp: new Date().getTime(),
       like_count: 0,
       like_ips: [],
