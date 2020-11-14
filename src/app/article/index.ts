@@ -25,8 +25,6 @@ export const ArticleModule = createModule({
       deleteArticle (input: DeleteArticleInput!): ID!
 
       likeArticle (article_id: ID!): Boolean!
-
-      SaveVisitor: Boolean
     }
 
     type Article {
