@@ -8,7 +8,7 @@ db.defaults({
   // 博主信息
   owner: {
     author: '了了君',
-    email: '1030219089a@gamil.com',
+    email: 'me@liaoliaojun.com',
     website: 'https://liaoliaojun.com',
   },
   // 访客信息
