@@ -5,7 +5,7 @@
   "author": "liaoliaojun",
   "license": "MIT",
   "scripts": {
-    "debug": "node --inspect ./src/index.ts",
+    "debug": "node --inspect --require ts-node/register src/index.ts",
     "start": "ts-node src/index.ts",
     "build": "tsc"
   },

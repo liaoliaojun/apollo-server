@@ -19,6 +19,14 @@ export const ArticleModule = createModule({
 
     type Mutation {
       addArticle (input: ArticleInput!): ID!
+
+      updateArticle (input: ArticleInput!): ID!
+
+      deleteArticle (input: DeleteArticleInput!): ID!
+
+      likeArticle (article_id: ID!): Boolean!
+
+      SaveVisitor: Boolean
     }
 
     type Article {
@@ -69,6 +77,13 @@ export const ArticleModule = createModule({
       top_weight: Int
       # 标签
       tags: [String]
+    }
+
+    input DeleteArticleInput {
+      # 验证身份
+      key: String!
+      # 文章id
+      article_id: ID!
     }
   `,
 })
