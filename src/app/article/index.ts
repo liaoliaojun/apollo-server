@@ -8,7 +8,7 @@ export const ArticleModule = createModule({
   providers: [Article],
   resolvers,
   typeDefs: gql`
-    extend type Query {
+    type Query {
       # 单个文章
       article (id: ID!): Article!
       # 所有文章
