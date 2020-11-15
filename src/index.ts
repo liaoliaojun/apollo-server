@@ -24,7 +24,7 @@ const server = express()
 server.use('/files', express.static(path.resolve(__dirname, '../live/uploads')))
 
 server.all('*', function(req, res, next) {
-  const allowOrigins = ['http://dev.liaoliaojun.com', 'https://dev.liaoliaojun.com', 'http://www.liaoliaojun.com', 'https://www.liaoliaojun.com']
+  const allowOrigins = ['http://liaoliaojun.com', 'https://liaoliaojun.com',  'http://dev.liaoliaojun.com', 'https://dev.liaoliaojun.com', 'http://www.liaoliaojun.com', 'https://www.liaoliaojun.com']
   const origin = req.headers.origin as string
 
   if (origin && allowOrigins.some(item => origin.indexOf(item) === 0)) {
