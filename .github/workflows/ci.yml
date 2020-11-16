@@ -62,4 +62,3 @@ jobs:
             docker login --username=${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_TOKEN }}
             docker pull liaoliaojun/blog-server:latest
             docker run -d -p 3000:3000 -v /www/blog/live:/app/live/ liaoliaojun/blog-server:latest
-            
