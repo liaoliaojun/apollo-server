@@ -61,6 +61,6 @@ server.use(
   }))
 )
 
-server.listen(4000, () => {
+server.listen(3000, () => {
   console.log('Live http://localhost:4000/graphql')
 })
