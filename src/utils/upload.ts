@@ -6,7 +6,7 @@ import {db} from '../db/'
 import request from 'request'
 
 const uploadDir = resolve(__dirname, '../../live/uploads')
-// const thumbnailDir = resolve(__dirname, '../../live/uploads/thumbnails')
+const thumbnailDir = resolve(__dirname, '../../live/uploads/thumbnails/')
 
 // Ensure upload directory exists
 export async function storeUpload ({stream, filename}): Promise<{id: string, path: string}> {
@@ -18,7 +18,12 @@ export async function storeUpload ({stream, filename}): Promise<{id: string, pat
   return new Promise((resolve, reject) => {
     return stream
       .pipe(createWriteStream(path))
-      .on('finish', () => resolve({ id, path: urlPath }))
+      .on('finish', () => {
+        setTimeout(() => {
+          genThumbnails(path, file)
+        }, 0)
+        return resolve({ id, path: urlPath })
+      })
       .on('error', reject)
   })
 }
@@ -38,14 +43,14 @@ export async function processUpload (file) {
 }
 
 
-export async function genThumbnails (fileUrl) {
+export async function genThumbnails (path, fileUrl) {
   const [fileName, _] = fileUrl.split('.') || []
   if (!fileName) return
 
   Thumb.thumb({
     suffix: '',
-    source: resolve(__dirname, '../../live/uploads/' + fileUrl),
-    destination: resolve(__dirname, '../../live//uploads/thumbnails/'),
+    source: path,
+    destination: thumbnailDir,
     width: 60,
     basename: fileName,
   }).then(function() {
