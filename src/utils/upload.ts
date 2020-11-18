@@ -1,10 +1,12 @@
 import {createWriteStream} from 'fs'
 import {resolve, basename} from 'path'
 import {generate} from 'shortid'
+import Thumb from 'node-thumbnail'
 import {db} from '../db/'
 import request from 'request'
 
 const uploadDir = resolve(__dirname, '../../live/uploads')
+// const thumbnailDir = resolve(__dirname, '../../live/uploads/thumbnails')
 
 // Ensure upload directory exists
 export async function storeUpload ({stream, filename}): Promise<{id: string, path: string}> {
@@ -35,6 +37,23 @@ export async function processUpload (file) {
   return recordFile({id, filename, mimetype, encoding, path})
 }
 
+
+export async function genThumbnails (fileUrl) {
+  const [fileName, _] = fileUrl.split('.') || []
+  if (!fileName) return
+
+  Thumb.thumb({
+    suffix: '',
+    source: resolve(__dirname, '../../live/uploads/' + fileUrl),
+    destination: resolve(__dirname, '../../live//uploads/thumbnails/'),
+    width: 60,
+    basename: fileName,
+  }).then(function() {
+    console.log('Generate Thumbnail Success')
+  }).catch(function(e) {
+    console.log('Error', e.toString())
+  })
+}
 
 export async function getImage (url: string) {
   if (!url) return new Error ('getImage no first params')
