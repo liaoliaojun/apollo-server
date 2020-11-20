@@ -15,7 +15,7 @@
     "dayjs": "^1.9.6",
     "dompurify": "^2.2.2",
     "express": "^4.17.1",
-    "express-graphql": "0.11.0",
+    "express-graphql": "0.12.0",
     "graphql": "^15.4.0",
     "graphql-modules": "^1.0.0-alpha.2",
     "jsdom": "^16.4.0",
