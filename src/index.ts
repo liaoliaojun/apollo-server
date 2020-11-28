@@ -11,6 +11,7 @@ import express from 'express'
 import path from'path'
 import {graphqlHTTP} from 'express-graphql'
 import {createApplication} from 'graphql-modules'
+import {graphqlUploadExpress} from 'graphql-upload'
 // import {UserModule} from './app/user/user.module'
 // import {AuthModule} from './app/auth/auth.module'
 import {OwnerModule} from './app/owner/owner.module'
@@ -53,11 +54,13 @@ fetchConfig()
 
 server.use(
   '/graphql',
+  graphqlUploadExpress({maxFileSize: 10000000, maxFiles: 10}),
   graphqlHTTP((request: any) => ({
     schema: app.schema,
     graphiql: true,
     customExecuteFn: execute as any,
     context: {request},
+    // uploads: false,
   }))
 )
 

@@ -2,6 +2,7 @@ import {createWriteStream} from 'fs'
 import {resolve, basename} from 'path'
 import {generate} from 'shortid'
 import Thumb from 'node-thumbnail'
+import {FileUpload} from 'graphql-upload'
 import {db} from '../db/'
 import request from 'request'
 
@@ -9,15 +10,30 @@ const uploadDir = resolve(__dirname, '../../live/uploads')
 const thumbnailDir = resolve(__dirname, '../../live/uploads/thumbnails/')
 
 // Ensure upload directory exists
-export async function storeUpload ({stream, filename}): Promise<{id: string, path: string}> {
+export async function storeUpload ({filename, stream, createReadStream}: {filename: string, stream?: any, createReadStream?: any}): Promise<{id: string, path: string}> {
   const id = generate()
   const file = `${id}-${filename}`
   const path = `${uploadDir}/${file}`
   const urlPath = `files/${file}`
 
+  if (stream) {
+    return new Promise((resolve, reject) => {
+      return stream
+        .pipe(createWriteStream(path))
+        .on('finish', () => {
+          setTimeout(() => {
+            genThumbnails(path, file)
+          }, 0)
+          return resolve({ id, path: urlPath })
+        })
+        .on('error', reject)
+    })
+  }
+
+  const writableStream = createWriteStream(path, {autoClose: true})
   return new Promise((resolve, reject) => {
-    return stream
-      .pipe(createWriteStream(path))
+    return createReadStream()
+      .pipe(writableStream)
       .on('finish', () => {
         setTimeout(() => {
           genThumbnails(path, file)
@@ -37,8 +53,8 @@ export const recordFile = file => {
 }
 
 export async function processUpload (file) {
-  const {stream, filename, mimetype, encoding} = await file
-  const {id, path} = await storeUpload({stream, filename})
+  const {createReadStream, filename, mimetype, encoding, stream} = await file
+  const {id, path} = await storeUpload({createReadStream, filename})
   return recordFile({id, filename, mimetype, encoding, path})
 }
 

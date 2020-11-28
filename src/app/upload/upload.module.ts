@@ -1,4 +1,5 @@
 import {createModule, gql} from 'graphql-modules'
+import {GraphQLUpload} from 'graphql-upload'
 import checkKey from '../../utils/key'
 import {processUpload, getImage} from '../../utils/upload'
 
@@ -26,6 +27,7 @@ export const UploadModule = createModule({
     }
   `,
   resolvers: {
+    Upload: GraphQLUpload,
     Mutation: {
       downImage: (_root, {key, fileUrl}, {injector}: GraphQLModules.Context) => {
         if (!checkKey(key)) return new Error ('check password failed')
