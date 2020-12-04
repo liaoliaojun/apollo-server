@@ -1,8 +1,8 @@
 {
-  "name": "liaoliaojun",
+  "name": "blog-server",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "liaoliaojun",
+  "author": "me@liaoliaojun.com",
   "license": "MIT",
   "scripts": {
     "debug": "node --inspect --require ts-node/register src/index.ts",
@@ -17,14 +17,14 @@
     "express": "^4.17.1",
     "express-graphql": "0.12.0",
     "graphql": "^15.4.0",
-    "graphql-modules": "^1.0.0-alpha.2",
+    "graphql-modules": "^1.0.0",
     "graphql-upload": "^11.0.0",
     "jsdom": "^16.4.0",
     "lowdb": "^1.0.0",
     "node-thumbnail": "^0.15.0",
     "reflect-metadata": "^0.1.13",
     "shortid": "^2.2.16",
-    "ts-node": "^9.0.0",
+    "ts-node": "^9.1.0",
     "typescript": "^4.1.2"
   },
   "devDependencies": {}
