@@ -93,6 +93,11 @@
     is-promise "4.0.0"
     tslib "~2.0.1"
 
+"@graphql-typed-document-node/core@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.0.tgz#0eee6373e11418bfe0b5638f654df7a4ca6a3950"
+  integrity sha512-wYn6r8zVZyQJ6rQaALBEln5B1pzxb9shV5Ef97kTvn6yVGrqyXVnDqnU24MXnFubR+rZjBY9NWuxX3FB2sTsjg==
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.npm.taobao.org/@protobufjs/aspromise/download/@protobufjs/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
@@ -1173,13 +1178,14 @@ graphql-extensions@^0.12.6:
     apollo-server-env "^2.4.5"
     apollo-server-types "^0.6.1"
 
-graphql-modules@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/graphql-modules/-/graphql-modules-1.1.0.tgz#b698f19d52a88357748bb053184828592e5705c2"
-  integrity sha512-+RYD41mn5HBl65I79VXbxR6nf3hzerlL+HGhqKKSyFQkPNl7cP0mLRU9zb0rDpak8uvCI4NGoFfmWbDKpSkrtQ==
+graphql-modules@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/graphql-modules/-/graphql-modules-1.2.0.tgz#65a8634d57e4cb13ceb9dbbaaba2b749335c8876"
+  integrity sha512-Dgpeat2YVZjVJft7rQcHUbRxcgSyZuafG2sitnPQr0hztIjDTYSWsvM6RrF0U+nio13/teOw3UiBf87m8a8a/Q==
   dependencies:
     "@graphql-tools/schema" "^7.0.0"
     "@graphql-tools/wrap" "^7.0.0"
+    "@graphql-typed-document-node/core" "^3.1.0"
     ramda "^0.27.1"
 
 graphql-subscriptions@^1.0.0:
