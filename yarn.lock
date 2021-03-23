@@ -1171,10 +1171,10 @@ graphql-extensions@^0.12.8:
     apollo-server-env "^3.0.0"
     apollo-server-types "^0.6.3"
 
-graphql-modules@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/graphql-modules/-/graphql-modules-1.2.1.tgz#c99e3bd215ead76b5e8545aff16f38c8596ee86b"
-  integrity sha512-XeOTqj1y79beKmUyX5r6UHqyOm/CqufRJokI1dk6QB3sQ3IfKYvZqMfvIpnqbTV6TZLpdL91WNEV7hyy5vlDYA==
+graphql-modules@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/graphql-modules/-/graphql-modules-1.4.2.tgz#18b1102a1e9b305bd330098330d3408663ef66d2"
+  integrity sha512-sw0jPou+DGv2BscbkTcd2VjfXNq45ALIFVEfgjKVhpMPraUDgddqG3RxQdGC16SbNJgpGovLKQd96zft6pVuaA==
   dependencies:
     "@graphql-tools/schema" "^7.0.0"
     "@graphql-tools/wrap" "^7.0.0"
