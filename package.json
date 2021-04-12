@@ -19,7 +19,7 @@
     "graphql": "^15.4.0",
     "graphql-modules": "^1.2.1",
     "graphql-upload": "^11.0.0",
-    "jsdom": "^16.4.0",
+    "jsdom": "^16.5.3",
     "lowdb": "^1.0.0",
     "node-thumbnail": "^0.15.0",
     "reflect-metadata": "^0.1.13",
