@@ -30,12 +30,11 @@ server.all('*', function(req, res, next) {
 
   // origin && allowOrigins.some(item => origin.indexOf(item) === 0)
   if (origin) {
-    res.header('Access-Control-Allow-Origin', origin)
-    res.header('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept,X-Requested-With');
-    res.header('Access-Control-Allow-Methods','PUT,POST,GET,DELETE,OPTIONS')
-    res.header('X-Powered-By',' 3.2.1')
-  
     if (req.method === 'OPTIONS') {
+      res.header('Access-Control-Allow-Origin', origin)
+      res.header('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept,X-Requested-With');
+      res.header('Access-Control-Allow-Methods','PUT,POST,GET,DELETE,OPTIONS')
+      res.header('X-Powered-By',' 3.2.1')
       res.send(200)
     } else {
       next()
