@@ -25,10 +25,11 @@ const server = express()
 server.use('/files', express.static(path.resolve(__dirname, '../live/uploads')))
 
 server.all('*', function(req, res, next) {
-  const allowOrigins = ['http://liaoliaojun.com', 'https://liaoliaojun.com',  'http://dev.liaoliaojun.com', 'https://dev.liaoliaojun.com', 'http://www.liaoliaojun.com', 'https://www.liaoliaojun.com']
+  // const allowOrigins = ['http://liaoliaojun.com', 'https://liaoliaojun.com',  'http://dev.liaoliaojun.com', 'https://dev.liaoliaojun.com', 'http://www.liaoliaojun.com', 'https://www.liaoliaojun.com']
   const origin = req.headers.origin as string
 
-  if (origin && allowOrigins.some(item => origin.indexOf(item) === 0)) {
+  // origin && allowOrigins.some(item => origin.indexOf(item) === 0)
+  if (origin) {
     res.header('Access-Control-Allow-Origin', origin)
     res.header('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept,X-Requested-With');
     res.header('Access-Control-Allow-Methods','PUT,POST,GET,DELETE,OPTIONS')
